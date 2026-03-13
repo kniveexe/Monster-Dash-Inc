@@ -8,7 +8,7 @@ public final class Constants {
     private Constants() {}
 
     // Board constants
-    public static final int BOARD_SIZE = 1000;
+    public static final int BOARD_SIZE = 100;
     public static final int BOARD_ROWS = 10;
     public static final int BOARD_COLS = 10;
     public static final int WINNING_POSITION = 99;
