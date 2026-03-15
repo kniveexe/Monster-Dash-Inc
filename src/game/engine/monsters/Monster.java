@@ -73,7 +73,14 @@ public abstract class Monster implements Comparable<Monster> {
     public String toString() {
         return String.format(
             "%s [%s] | Pos: %d | Energy: %d | Frozen: %b | Shielded: %b | ConfusionTurns: %d",
-            name, role, position, energy, frozen, shielded, confusionTurns
+            name, role, position, energy, frozen, shielded, confusionTurns  
         );
-    }
+    }// ─── Abstract Methods (The Placeholders) ─────────────────────────────
+ // This ensures the GameEngine can call these on ANY monster.
+
+    /** Returns the movement multiplier (e.g., 2x for Dasher, 0.5x for MultiTasker) */
+    public abstract int getSpeedModifier(int diceRoll);
+
+    /** Triggers the specific power-up logic for the monster subclass */
+    public abstract void performPowerUp();
 }
