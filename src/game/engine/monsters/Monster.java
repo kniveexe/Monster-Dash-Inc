@@ -1,12 +1,13 @@
 package game.engine.monsters;
 
+import game.engine.Constants;
 import game.engine.Role;
 
 public abstract class Monster{
-	private String name;
-	private String description;
+	final private String name;
+	final private String description;
 	private Role role;
-	private Role originalrole;
+	final private Role originalrole;
 	private int energy;
 	private int position;
 	private boolean frozen;
@@ -51,13 +52,23 @@ public abstract class Monster{
 	}
 	
 	public void setEnergy(int energy) {
-		this.energy = energy;
+		if(this.energy>=0) {
+			this.energy = energy;
+		}
 	}
 	public int getPosition() {
 		return this.position;
 	}
 	public void setPosition(int position) {
+		if(this.position >= Constants.STARTING_POS) {
 		this.position = position;
+		}
+		if(this.position > Constants.WINNING_POS){
+			this.position = Constants.WINNING_POS;
+					
+		}
+		
+		
 	}
 	public boolean getFrozen() {
 		return this.frozen;
