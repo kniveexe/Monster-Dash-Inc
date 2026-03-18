@@ -3,7 +3,7 @@ package game.engine.monsters;
 import game.engine.Constants;
 import game.engine.Role;
 
-public abstract class Monster{
+public abstract class Monster implements Comparable<Monster> {
 	final private String name;
 	final private String description;
 	private Role role;
