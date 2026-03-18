@@ -2,7 +2,7 @@ package game.engine.cells;
 
 import game.engine.monsters.Monster;
 public class Cell{
-	private String name; private Monster monster;  // READ AND WRITE
+	private final String name; private Monster monster;  // READ AND WRITE
 
     public Cell(String name) {
         this.name    = name;
