@@ -2,7 +2,7 @@ package game.engine.cells;
 
 import game.engine.monsters.Monster;
 public class Cell{
-	private String name; private Monster monster;  // READ AND WRITE
+	private final String name; private Monster monster;  // READ AND WRITE aka setters we getters
 
     public Cell(String name) {
         this.name    = name;
@@ -13,7 +13,7 @@ public class Cell{
         return name;
     }
 
-    public Monster getMonster() { // de le monster 3shn tegbel  monster wa2f fen (cell)
+    public Monster getMonster() { // de le monster 3shn tegb el  monster wa2f fen (cell)
         return monster;
     }
 
