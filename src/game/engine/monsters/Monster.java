@@ -78,15 +78,4 @@ public abstract class Monster{
 		this.confusionTurns = confusionTurns;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

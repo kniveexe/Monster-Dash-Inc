@@ -11,7 +11,9 @@ public class Dasher extends Monster{
 		this.momentumTurns = 0;
 		
 	}
-	
+	public int getMomentumTurns() {
+		return this.momentumTurns;
+	}
 	
 	
 	
