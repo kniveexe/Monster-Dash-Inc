@@ -52,7 +52,7 @@ public abstract class Monster{
 	}
 	
 	public void setEnergy(int energy) {
-		if(this.energy>=0) {
+		if(energy>=0) {
 			this.energy = energy;
 		}
 	}
