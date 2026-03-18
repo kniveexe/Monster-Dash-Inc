@@ -60,10 +60,10 @@ public abstract class Monster{
 		return this.position;
 	}
 	public void setPosition(int position) {
-		if(this.position >= Constants.STARTING_POS) {
+		if(position >= Constants.STARTING_POS) {
 		this.position = position;
 		}
-		if(this.position > Constants.WINNING_POS){
+		if(position > Constants.WINNING_POS){
 			this.position = Constants.WINNING_POS;
 					
 		}
