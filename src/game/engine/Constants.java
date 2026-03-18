@@ -11,8 +11,8 @@ public final class Constants {
     public static final int BOARD_SIZE = 100;
     public static final int BOARD_ROWS = 10;
     public static final int BOARD_COLS = 10;
-    public static final int WINNING_POSITION = 99;
-    public static final int STARTING_POSITION = 0;
+    public static final int WINNING_POS = 99;
+    public static final int STARTING_POS = 0;
 
     // Special cell positions
     public static final int[] MONSTER_CELL_INDICES  = {2, 18, 34, 54, 82, 88};

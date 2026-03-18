@@ -8,14 +8,3 @@ package game.engine.cards;
  */
 public class ShieldCard extends Card {
 
-    /**
-     * Creates a ShieldCard. Lucky is always true.
-     *
-     * @param name        card name
-     * @param description what it does
-     * @param rarity      how many copies exist in the pile
-     */
-    public ShieldCard(String name, String description, int rarity) {
-        super(name, description, rarity, true);
-    }
-}
