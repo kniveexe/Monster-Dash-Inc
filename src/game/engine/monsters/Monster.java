@@ -70,13 +70,13 @@ public abstract class Monster{
 		
 		
 	}
-	public boolean getFrozen() {
+	public boolean isFrozen() {
 		return this.frozen;
 	}
 	public void setFrozen(boolean frozen) {
 		this.frozen = frozen;
 	}
-	public boolean getShielded() {
+	public boolean isShielded() {
 		return this.shielded;
 	}
 	public void setShielded(boolean shielded) {
