@@ -9,21 +9,21 @@ public class Cell{
         this.monster = null;
     }
 
-    public String getName() {
+    public String getName() { //de be teget el name
         return name;
     }
 
-    public Monster getMonster() {
+    public Monster getMonster() { // de le monster 3shn tegbel  monster wa2f fen (cell)
         return monster;
     }
 
-    public void setMonster(Monster monster) {
+    public void setMonster(Monster monster) { // de hat8yar mkan monster
         this.monster = monster;
     }
 
     
     public String toString() {
-        return "Cell[" + name + "]";
+        return "Cell position for (" + name + ")";
     }
-}
+}// mkan el monster
 	
