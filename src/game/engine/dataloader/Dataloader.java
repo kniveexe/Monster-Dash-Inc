@@ -33,7 +33,7 @@ package game.engine.dataloader;
 	        return monsters;
 	    }
     
-    // ... methods will go here
+    // ... methods will go 
 }
 
 

@@ -1,31 +1,3 @@
 package game.engine.cells;
 
 import game.engine.monsters.Monster;
-
-public class Cell {
-
-    private String name;      // READ ONLY
-    private Monster monster;  // READ AND WRITE
-
-    public Cell(String name) {
-        this.name    = name;
-        this.monster = null;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Monster getMonster() {
-        return monster;
-    }
-
-    public void setMonster(Monster monster) {
-        this.monster = monster;
-    }
-
-    @Override
-    public String toString() {
-        return "Cell[" + name + "]";
-    }
-}
