@@ -61,11 +61,11 @@ public abstract class Monster implements Comparable<Monster> {
 		return this.position;
 	}
 	public void setPosition(int position) {
-		if(position >= Constants.STARTING_POS) {
+		if(position >= Constants.STARTING_POSITION) {
 		this.position = position;
 		}
-		if(position > Constants.WINNING_POS){
-			this.position = Constants.WINNING_POS;
+		if(position > Constants.WINNING_POSITION){
+			this.position = Constants.WINNING_POSITION;
 					
 		}
 		
