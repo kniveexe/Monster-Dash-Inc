@@ -7,7 +7,7 @@ public abstract class Monster implements Comparable<Monster> {
 	final private String name;
 	final private String description;
 	private Role role;
-	final private Role originalrole;
+	final private Role originalRole;
 	private int energy;
 	private int position;
 	private boolean frozen;
@@ -17,7 +17,8 @@ public abstract class Monster implements Comparable<Monster> {
 	public Monster(String name, String description, Role originalRole, int energy) {
 		this.name = name;
 		this.description = description;
-		this.originalrole = originalRole;
+		this.originalRole = originalRole;
+		this.role = originalRole;
 		this.energy = energy;
 		this.position = 0;
 		this.frozen = false;
@@ -45,7 +46,7 @@ public abstract class Monster implements Comparable<Monster> {
 	}
 	
 	public Role getOriginalRole() {
-		return this.originalrole;
+		return this.originalRole;
 	}
 	public int getEnergy() {
 		return this.energy;

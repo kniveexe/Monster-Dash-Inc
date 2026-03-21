@@ -17,6 +17,9 @@ public class EnergyStealCard extends Card implements CanisterModifier{
 	        monster.setEnergy(monster.getEnergy() - energy);
 	    }
 	
+	 public int getEnergy() {
+		 return energy;
+	 }
 	
 	
 }
