@@ -53,23 +53,21 @@ public abstract class Monster implements Comparable<Monster> {
 	}
 	
 	public void setEnergy(int energy) {
-		if(energy>=Constants.MIN_ENERGY) {
-			this.energy = energy;
-		}
+	    if(energy < Constants.MIN_ENERGY) {
+	        this.energy = Constants.MIN_ENERGY; // = 0
+	    } else {
+	        this.energy = energy;
+	    }
 	}
 	public int getPosition() {
 		return this.position;
 	}
 	public void setPosition(int position) {
-		if(position >= Constants.STARTING_POSITION) {
-		this.position = position;
-		}
-		if(position > Constants.WINNING_POSITION){
-			this.position = Constants.WINNING_POSITION;
-					
-		}
-		
-		
+	    if (position < Constants.STARTING_POSITION) {
+	        this.position = Constants.STARTING_POSITION; 
+	    } else {
+	        this.position = position % Constants.BOARD_SIZE; 
+	    }
 	}
 	public boolean isFrozen() {
 		return this.frozen;

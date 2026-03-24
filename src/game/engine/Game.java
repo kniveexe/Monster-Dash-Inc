@@ -33,15 +33,16 @@ public class Game {
     }
 
     
-    private Monster selectRandomMonsterByRole(Role role) {
+    public Monster selectRandomMonsterByRole(Role role) {
         ArrayList<Monster> matchingMonsters = new ArrayList<>();
-
+        
         for (Monster m : allMonsters) {
-            if (m.getOriginalRole() == role) {
+            if (m.getRole() == role) {  
                 matchingMonsters.add(m);
             }
         }
-
+        
+        if (matchingMonsters.isEmpty()) return null;
         
         int randomIndex = (int) (Math.random() * matchingMonsters.size());
         return matchingMonsters.get(randomIndex);
