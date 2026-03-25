@@ -33,7 +33,7 @@ public class Game {
     }
 
     
-    public Monster selectRandomMonsterByRole(Role role) {
+    private Monster selectRandomMonsterByRole(Role role) {
         ArrayList<Monster> matchingMonsters = new ArrayList<>();
         
         for (Monster m : allMonsters) {
