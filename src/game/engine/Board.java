@@ -53,7 +53,7 @@ public class Board {
 	public static ArrayList<Card> getOriginalCards() {
 		return originalCards;}}
 	
-
+// abdo mota
 	
 	
 	
