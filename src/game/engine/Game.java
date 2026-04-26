@@ -61,4 +61,26 @@ public class Game {
     public Monster getCurrent() { return current; } 
 
     public void setCurrent(Monster current) { this.current = current; } 
+    
+   // private Monster getCurrentOpponent() { return opponent;}
+    
+    private int rollDice() { return (int) (Math.random()*6)+1;}
+    
+    
+    	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
