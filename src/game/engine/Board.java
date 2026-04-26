@@ -51,21 +51,56 @@ public class Board {
 
 
 	public static ArrayList<Card> getOriginalCards() {
-		return originalCards;}}
+		return originalCards;}
 	
 
+    private int[] indexToRowCol(int index) {
+    	int row = index/Constants.BOARD_COLS;
+    	int rawcol = index%Constants.BOARD_COLS;
+    	int col = 0;
+    	if(row%2 == 0) {
+    	col  = rawcol;
+    		
+    	}else {
+    		
+    		col = (Constants.BOARD_COLS-1)-rawcol;
+    	}
+    	
+    	int [] pair = {row,col};
+    	
+    	
+    	return pair;
+    	
+    }
+	
+    private Cell getCell(int index) {
+    	
+    int [] numCell = indexToRowCol(index);
+    int row = numCell[0];
+    int col = numCell[1];
+    return getBoardCells()[row][col];
+    
+    	
+    }
+	
+    private void setCell(int index, Cell cell) {
+    	int [] pairIndex = indexToRowCol(index);
+    	int row = pairIndex[0];
+    	int col = pairIndex[1];
+    	this.boardCells[row][col] = cell;
+    	
+    	
+    	
+    }
+	
+    void initializeBoard(ArrayList<Cell> specialCells) {
+    	
+    }
+    
+    
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
 	
 	
 	
