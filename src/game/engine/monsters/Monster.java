@@ -88,4 +88,18 @@ public abstract class Monster implements Comparable<Monster> {
 		this.confusionTurns = confusionTurns;
 	}
 	
+	public void move(int distance) {
+	    setPosition(this.position + distance);
+	}
+
+	public void decrementConfusion() {
+	    if (confusionTurns > 0) {
+	        confusionTurns--;
+	        if (confusionTurns == 0) {
+	            this.role = this.originalRole;
+	        }
+	    }
+	}
+	
+	
 }
