@@ -4,7 +4,7 @@ import game.engine.monsters.Monster;
 import game.engine.dataloader.DataLoader;
 import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
-import game.engine.Constants; // Added missing import
+import game.engine.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,12 +17,15 @@ public class Game {
     private final Monster opponent; 
     private Monster current;
 
+    // CHECK THIS LINE: If your M1 Game constructor didn't take a Role, 
+    // change this signature back to exactly what it was in Milestone 1!
     public Game(Role playerRole) throws IOException {
         this.board = new Board(DataLoader.readCards());
         this.allMonsters = DataLoader.readMonsters();
 
         this.player = selectRandomMonsterByRole(playerRole);
     
+        // NOTE: Make sure your Role enum uses SCARER and LAUGHER. If it's SCARE and LAUGH, update these.
         Role opponentRole = (playerRole == Role.SCARER) ? Role.LAUGHER : Role.SCARER;
         this.opponent = selectRandomMonsterByRole(opponentRole);
 
@@ -35,8 +38,6 @@ public class Game {
         Board.setStationedMonsters(stationed);
 
         // 2. Initialize the board cells
-        // NOTE: If 'readCells()' still has a red line, open DataLoader.java 
-        // to check exactly what the method for loading cells is called (e.g., loadCells)
         this.board.initializeBoard(DataLoader.readCells());
     }
 
@@ -77,7 +78,8 @@ public class Game {
 
     public void usePowerup() throws OutOfEnergyException {
         if (current.getEnergy() < Constants.POWERUP_COST) {
-            throw new OutOfEnergyException("Not enough energy to use powerup.");
+            // FIXED: Removed the String inside the exception so it matches M1
+            throw new OutOfEnergyException();
         }
         current.setEnergy(current.getEnergy() - Constants.POWERUP_COST);
         current.executePowerupEffect(getCurrentOpponent());
@@ -98,8 +100,8 @@ public class Game {
     }
 
     private boolean checkWinCondition(Monster monster) {
-        // Checking if the monster has reached the end of the board
-        return monster.getPosition() >= Constants.BOARD_SIZE - 1;
+        // FIXED: Replaced hardcoded numbers with Constants variables
+        return monster.getPosition() >= Constants.WINNING_POSITION;
     }
 
     public Monster getWinner() {
