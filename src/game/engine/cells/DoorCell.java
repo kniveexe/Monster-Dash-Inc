@@ -3,9 +3,9 @@ package game.engine.cells;
 import game.engine.Role;
 import game.engine.interfaces.CanisterModifier;
 import game.engine.monsters.Monster;
+import game.engine.Board;
 
-
-public class DoorCell extends Cell implements CanisterModifier{
+public class DoorCell extends Cell implements CanisterModifier {
 	private final Role role;
 	private final int energy;
 	private boolean activated;
@@ -15,35 +15,36 @@ public class DoorCell extends Cell implements CanisterModifier{
 		this.role = role;
 		this.energy = energy;
 		this.activated = false;
-		
 	}
 
-	
-	public void modifyEnergy(Monster monster) {
-		if(activated) return;
-		if(monster.getRole() == role) {
-			monster.setEnergy(monster.getEnergy()+energy);
-		}else {
-			monster.setEnergy(monster.getEnergy()-energy);
-		}
-		activated = true;
-	}
-	
 	public Role getRole() { return role; }
-    public int getEnergy() { return energy; }
-    public boolean isActivated() { return activated; }
-    public void setActivated(boolean activated) { this.activated = activated; }
+	public int getEnergy() { return energy; }
+	public boolean isActivated() { return activated; }
+	public void setActivated(boolean activated) { this.activated = activated; }
 
-	
+	@Override
+	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
+		monster.alterEnergy(canisterValue); // Respects the shield mechanic
+	}
 
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	@Override
+	public void onLand(Monster landingMonster, Monster opponentMonster) {
+		super.onLand(landingMonster, opponentMonster);
+		
+		if (!activated) {
+			// Determine if the landing monster gets a bonus or penalty
+			int energyChange = (landingMonster.getRole() == this.role) ? this.energy : -this.energy;
+			
+			// Apply to landing monster
+			modifyCanisterEnergy(landingMonster, energyChange);
+			
+			// Apply to stationed monsters of the SAME role as the landing monster
+			for (Monster m : Board.getStationedMonsters()) {
+				if (m.getRole() == landingMonster.getRole()) {
+					modifyCanisterEnergy(m, energyChange);
+				}
+			}
+			this.activated = true;
+		}
+	}
 }

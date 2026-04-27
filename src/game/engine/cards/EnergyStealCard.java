@@ -3,48 +3,39 @@ package game.engine.cards;
 import game.engine.interfaces.CanisterModifier;
 import game.engine.monsters.Monster;
 
-public class EnergyStealCard extends Card implements CanisterModifier{
+public class EnergyStealCard extends Card implements CanisterModifier {
 	private final int energy;
 	
 	public EnergyStealCard(String name, String description, int rarity, int energy) {
-		super(name,description,rarity,true);
+		super(name, description, rarity, true);
 		this.energy = energy;
-		
-		
 	}
-	 public void modifyEnergy(Monster monster) {
-	        
-	        monster.setEnergy(monster.getEnergy() - energy);
-	    }
+
+	public int getEnergy() {
+		return energy;
+	}
 	
-	 public int getEnergy() {
-		 return energy;
-	 }
+	@Override
+	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
+		if (canisterValue < 0) {
+			monster.alterEnergy(canisterValue); // alterEnergy respects the shield
+		} else {
+			monster.setEnergy(monster.getEnergy() + canisterValue);
+		}
+	}
 	
 	@Override
 	public void performAction(Monster player, Monster opponent) {
-		int oppEnergy = opponent.getEnergy();
-		int cardEnergy = getEnergy();
-		int playerEnergy = player.getEnergy();
+		int amountToSteal = Math.min(this.energy, opponent.getEnergy());
+		int oppOldEnergy = opponent.getEnergy();
 		
-		if(!opponent.isShielded()) {
-			if(oppEnergy>=cardEnergy) {
-				player.setEnergy(playerEnergy + cardEnergy);
-				opponent.setEnergy(oppEnergy - cardEnergy);
-				
-			}else {
-				player.setEnergy(playerEnergy+oppEnergy);
-				opponent.setEnergy(0);
-			
-			
-		}
+		// Attempt to steal from opponent (respects shield via modifyCanisterEnergy)
+		modifyCanisterEnergy(opponent, -amountToSteal);
 		
+		// Calculate how much was actually stolen in case the shield blocked it
+		int actualStolen = oppOldEnergy - opponent.getEnergy();
 		
+		// Player gains the actual stolen amount
+		modifyCanisterEnergy(player, actualStolen);
 	}
-	 
-	 
-	 
-	}
-	
-	
-}	
+}

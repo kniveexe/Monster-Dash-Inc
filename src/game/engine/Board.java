@@ -138,7 +138,7 @@ public class Board {
         Collections.shuffle(cards);
     }
 
-    static Card drawCard() {
+    public static Card drawCard() {
         if (cards.isEmpty()) {
             reloadCards();
         }
