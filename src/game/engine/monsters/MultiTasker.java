@@ -1,5 +1,5 @@
 package game.engine.monsters;
-
+import game.engine.Constants;
 import game.engine.Role;
 
 public class MultiTasker extends Monster {
@@ -23,7 +23,7 @@ public class MultiTasker extends Monster {
 		int change = newEnergy - getEnergy();
 		if (change != 0) {
 			// Gains +200 energy on all incoming energy changes
-			super.setEnergy(newEnergy + 200);
+			super.setEnergy(newEnergy + Constants.MULTITASKER_BONUS);
 		} else {
 			super.setEnergy(newEnergy);
 		}
@@ -31,10 +31,12 @@ public class MultiTasker extends Monster {
 
 	@Override
 	public void move(int distance) {
-		super.move(distance); // Passive: Moves at the normal dice roll
-		if (normalSpeedTurns > 0) {
-			normalSpeedTurns--;
-		}
+	    if (normalSpeedTurns > 0) {
+	        super.move(distance); // Focus Mode: normal speed
+	        normalSpeedTurns--;
+	    } else {
+	        super.move(distance / 2); // Passive: half speed
+	    }
 	}
 
 	@Override
