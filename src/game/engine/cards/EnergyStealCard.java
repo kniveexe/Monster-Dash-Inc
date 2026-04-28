@@ -26,16 +26,13 @@ public class EnergyStealCard extends Card implements CanisterModifier {
 	
 	@Override
 	public void performAction(Monster player, Monster opponent) {
-		int amountToSteal = Math.min(this.energy, opponent.getEnergy());
-		int oppOldEnergy = opponent.getEnergy();
-		
-		// Attempt to steal from opponent (respects shield via modifyCanisterEnergy)
-		modifyCanisterEnergy(opponent, -amountToSteal);
-		
-		// Calculate how much was actually stolen in case the shield blocked it
-		int actualStolen = oppOldEnergy - opponent.getEnergy();
-		
-		// Player gains the actual stolen amount
-		modifyCanisterEnergy(player, actualStolen);
-	}
-}
+	    int amountToSteal = Math.min(this.energy, opponent.getEnergy());
+	    int oppOldEnergy = opponent.getEnergy();
+
+	    modifyCanisterEnergy(opponent, -amountToSteal);
+
+	    // If shield blocked it, actualStolen = 0. If Dynamo doubled it, still use amountToSteal cap.
+	    int actualStolen = Math.min(amountToSteal, oppOldEnergy - opponent.getEnergy());
+
+	    modifyCanisterEnergy(player, actualStolen);
+	}}

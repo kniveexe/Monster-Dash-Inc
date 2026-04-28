@@ -32,19 +32,19 @@ public class DoorCell extends Cell implements CanisterModifier {
 		super.onLand(landingMonster, opponentMonster);
 		
 		if (!activated) {
-			// Determine if the landing monster gets a bonus or penalty
-			int energyChange = (landingMonster.getRole() == this.role) ? this.energy : -this.energy;
-			
-			// Apply to landing monster
-			modifyCanisterEnergy(landingMonster, energyChange);
-			
-			// Apply to stationed monsters of the SAME role as the landing monster
-			for (Monster m : Board.getStationedMonsters()) {
-				if (m.getRole() == landingMonster.getRole()) {
-					modifyCanisterEnergy(m, energyChange);
-				}
-			}
-			this.activated = true;
-		}
-	}
-}
+		    int energyChange = (landingMonster.getRole() == this.role) ? this.energy : -this.energy;
+		    boolean wasShielded = landingMonster.isShielded();
+
+		    modifyCanisterEnergy(landingMonster, energyChange);
+
+		    boolean wasBlocked = wasShielded && energyChange < 0;
+
+		    if (!wasBlocked) {
+		        for (Monster m : Board.getStationedMonsters()) {
+		            if (m.getRole() == landingMonster.getRole()) {
+		                modifyCanisterEnergy(m, energyChange);
+		            }
+		        }
+		        this.activated = true;
+		    }
+		}}}

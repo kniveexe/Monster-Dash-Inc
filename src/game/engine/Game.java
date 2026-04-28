@@ -32,11 +32,10 @@ public class Game {
         this.current = player;
 
         // 1. Assign stationed monsters (exclude player and opponent)
-        ArrayList<Monster> stationed = new ArrayList<>(allMonsters);
-        stationed.remove(this.player);
-        stationed.remove(this.opponent);
-        Board.setStationedMonsters(stationed);
-
+        allMonsters.remove(this.player);
+        allMonsters.remove(this.opponent);
+        Board.setStationedMonsters(allMonsters);
+        
         // 2. Initialize the board cells
         this.board.initializeBoard(DataLoader.readCells());
     }
