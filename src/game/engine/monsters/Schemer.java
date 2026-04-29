@@ -15,35 +15,27 @@ public class Schemer extends Monster {
         if (target.getEnergy() < stealAmount) {
             stealAmount = target.getEnergy();
         }
-        
+        // Always call setEnergy so passives (like Schemer's +10) fire
         target.setEnergy(target.getEnergy() - stealAmount);
         return stealAmount;
     }
 
+   
     @Override
     public void setEnergy(int newEnergy) {
-        int change = newEnergy - getEnergy();
-        if (change != 0) {
-            // Gains +10 energy on every incoming energy change
-            super.setEnergy(newEnergy + 10);
-        } else {
-            super.setEnergy(newEnergy);
-        }
+        super.setEnergy(newEnergy + 10);
     }
 
     @Override
     public void executePowerupEffect(Monster opponentMonster) {
         int totalStolen = 0;
-        
-        // Steals from opponent
+
         totalStolen += stealEnergyFrom(opponentMonster);
-        
-        // Steals from all stationed monsters
+
         for (Monster m : Board.getStationedMonsters()) {
             totalStolen += stealEnergyFrom(m);
         }
-        
-        // Gains a single total steal bonus at the end
+
         setEnergy(getEnergy() + totalStolen);
     }
 }
