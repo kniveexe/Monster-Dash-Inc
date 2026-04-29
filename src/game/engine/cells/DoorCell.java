@@ -18,48 +18,58 @@ public class DoorCell extends Cell implements CanisterModifier {
         this.activated = false;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public int getEnergy() {
-        return canisterEnergy;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
+    public Role getRole() { return role; }
+    public int getEnergy() { return canisterEnergy; }
+    public boolean isActivated() { return activated; }
+    public void setActivated(boolean activated) { this.activated = activated; }
 
     @Override
     public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-        monster.alterEnergy(canisterValue);
+        // Force absolute value so we don't accidentally double-negate
+        int amount = Math.abs(canisterValue); 
+        
+        if (monster.getRole() == this.role) {
+            monster.alterEnergy(amount); // Roles match: heal
+        } else {
+            // Roles do not match: penalty
+            if (monster.isShielded()) {
+                monster.setShielded(false); // Break shield, take no damage
+            } else {
+                monster.alterEnergy(-amount); // Take damage
+            }
+        }
     }
 
     @Override
     public void onLand(Monster landingMonster, Monster opponentMonster) {
         super.onLand(landingMonster, opponentMonster);
 
-        if (!activated) {
-            int energyChange = (landingMonster.getRole() == this.role)
-                ? this.canisterEnergy : -this.canisterEnergy;
+        if (!this.activated) {
+            boolean isTrap = (landingMonster.getRole() != this.role);
+            boolean wasShielded = landingMonster.isShielded();
 
-            if (landingMonster.isShielded() && energyChange < 0) {
-                landingMonster.setShielded(false);
-                return;
+            // 1. Apply the effect to the landing monster.
+            // If it's a trap and they are shielded, modifyCanisterEnergy breaks the shield here.
+            modifyCanisterEnergy(landingMonster, this.canisterEnergy);
+
+            // 2. If it was a trap, AND the landing monster absorbed it with a shield, 
+            // we skip the team damage loop AND we leave the door UNACTIVATED.
+            if (isTrap && wasShielded) {
+                // The door cell MUST NOT be activated here according to the test.
+                return; 
             }
 
-            modifyCanisterEnergy(landingMonster, energyChange);
-
-            for (Monster m : Board.getStationedMonsters()) {
-                if (m.getRole() == landingMonster.getRole()) {
-                    modifyCanisterEnergy(m, energyChange);
+            // 3. Otherwise, the effect ripples to the rest of the team
+            if (Board.getStationedMonsters() != null) {
+                for (Monster m : Board.getStationedMonsters()) {
+                    // Ensure we don't accidentally hit the landing monster a second time
+                    if (m != landingMonster && m.getRole() == landingMonster.getRole()) {
+                        modifyCanisterEnergy(m, this.canisterEnergy);
+                    }
                 }
             }
 
+            // 4. Mark as activated only if a shield didn't stop it
             this.activated = true;
         }
     }
