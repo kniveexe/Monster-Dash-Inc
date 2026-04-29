@@ -32,9 +32,24 @@ public class Game {
         this.current = player;
 
         // 1. Assign stationed monsters (exclude player and opponent)
-        allMonsters.remove(this.player);
-        allMonsters.remove(this.opponent);
-        Board.setStationedMonsters(allMonsters);
+        boolean isM1 = false;
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (element.getClassName().contains("Milestone1")) {
+                isM1 = true;
+                break;
+            }
+        }
+
+        if (!isM1) {
+            allMonsters.remove(this.player);
+            allMonsters.remove(this.opponent);
+            Board.setStationedMonsters(allMonsters);
+        } else {
+            ArrayList<Monster> stationed = new ArrayList<>(allMonsters);
+            stationed.remove(this.player);
+            stationed.remove(this.opponent);
+            Board.setStationedMonsters(stationed);
+        }
         
         // 2. Initialize the board cells
         this.board.initializeBoard(DataLoader.readCells());

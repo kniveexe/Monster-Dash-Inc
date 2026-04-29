@@ -8,18 +8,18 @@ import game.engine.Board;
 public class DoorCell extends Cell implements CanisterModifier {
 
     private final Role role;
-    private final int canisterEnergy;
+    private final int energy;
     private boolean activated;
 
     public DoorCell(String name, Role role, int energy) {
         super(name);
         this.role = role;
-        this.canisterEnergy = energy;
+        this.energy = energy;
         this.activated = false;
     }
 
     public Role getRole() { return role; }
-    public int getEnergy() { return canisterEnergy; }
+    public int getEnergy() { return energy; }
     public boolean isActivated() { return activated; }
     public void setActivated(boolean activated) { this.activated = activated; }
 
@@ -50,7 +50,7 @@ public class DoorCell extends Cell implements CanisterModifier {
 
             // 1. Apply the effect to the landing monster.
             // If it's a trap and they are shielded, modifyCanisterEnergy breaks the shield here.
-            modifyCanisterEnergy(landingMonster, this.canisterEnergy);
+            modifyCanisterEnergy(landingMonster, this.energy);
 
             // 2. If it was a trap, AND the landing monster absorbed it with a shield, 
             // we skip the team damage loop AND we leave the door UNACTIVATED.
@@ -64,7 +64,7 @@ public class DoorCell extends Cell implements CanisterModifier {
                 for (Monster m : Board.getStationedMonsters()) {
                     // Ensure we don't accidentally hit the landing monster a second time
                     if (m != landingMonster && m.getRole() == landingMonster.getRole()) {
-                        modifyCanisterEnergy(m, this.canisterEnergy);
+                        modifyCanisterEnergy(m, this.energy);
                     }
                 }
             }
