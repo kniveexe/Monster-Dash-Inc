@@ -62,6 +62,20 @@ public abstract class Monster implements Comparable<Monster> {
         }
     }
 
+    public final void spendEnergy(int amount) {
+        if (amount < 0) {
+            return;
+        }
+
+        int newEnergy = this.energy - amount;
+
+        if (newEnergy < Constants.MIN_ENERGY) {
+            this.energy = Constants.MIN_ENERGY;
+        } else {
+            this.energy = newEnergy;
+        }
+    }    
+
     public final void alterEnergy(int energy) {
         if (isShielded() && energy < 0) {
             setShielded(false);

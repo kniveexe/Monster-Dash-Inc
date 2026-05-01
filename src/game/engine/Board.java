@@ -166,11 +166,13 @@ public class Board {
 
     public void moveMonster(Monster currentMonster, int roll, Monster opponentMonster) throws InvalidMoveException {
         int oldPosition = currentMonster.getPosition();
+
         currentMonster.move(roll);
         int newPosition = currentMonster.getPosition();
 
         if (newPosition == opponentMonster.getPosition()) {
             currentMonster.setPosition(oldPosition);
+            updateMonsterPositions(currentMonster, opponentMonster);
             throw new InvalidMoveException();
         }
 
@@ -178,6 +180,7 @@ public class Board {
 
         if (currentMonster.getPosition() == opponentMonster.getPosition()) {
             currentMonster.setPosition(oldPosition);
+            updateMonsterPositions(currentMonster, opponentMonster);
             throw new InvalidMoveException();
         }
 
@@ -188,4 +191,4 @@ public class Board {
 
         updateMonsterPositions(currentMonster, opponentMonster);
     }
-}
+}  

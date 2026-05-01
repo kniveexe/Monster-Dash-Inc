@@ -92,13 +92,12 @@ public class Game {
 
     public void usePowerup() throws OutOfEnergyException {
         if (current.getEnergy() < Constants.POWERUP_COST) {
-            // FIXED: Removed the String inside the exception so it matches M1
             throw new OutOfEnergyException();
         }
-        current.setEnergy(current.getEnergy() - Constants.POWERUP_COST);
+
+        current.spendEnergy(Constants.POWERUP_COST);
         current.executePowerupEffect(getCurrentOpponent());
     }
-
     public void playTurn() throws InvalidMoveException {
         if (current.isFrozen()) {
             current.setFrozen(false); // Skip turn and unfreeze
@@ -114,8 +113,8 @@ public class Game {
     }
 
     private boolean checkWinCondition(Monster monster) {
-        // FIXED: Replaced hardcoded numbers with Constants variables
-        return monster.getPosition() >= Constants.WINNING_POSITION;
+        return monster.getPosition() >= Constants.WINNING_POSITION
+                && monster.getEnergy() >= Constants.WINNING_ENERGY;
     }
 
     public Monster getWinner() {
