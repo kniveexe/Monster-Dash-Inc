@@ -1,0 +1,286 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+.start-root, .game-root, .end-root {
+    -fx-background-color: linear-gradient(to bottom right, #050816, #111827, #1e1b4b);
+}
+
+.glass-card, .top-bar, .side-panel, .metric-card, .monster-card-player, .monster-card-opponent {
+    -fx-background-color: rgba(15, 23, 42, 0.88);
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-border-color: rgba(148, 163, 184, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.38), 22, 0.25, 0, 6);
+}
+
+.main-area {
+    -fx-background-color: transparent;
+}
+
+.hero-title {
+    -fx-font-size: 58px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.50), 22, 0.3, 0, 0);
+}
+
+.hero-subtitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #facc15;
+}
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.panel-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.section-title, .small-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.muted-text, .instructions-text, .legend-text, .card-effect-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #cbd5e1;
+}
+
+.instructions-text {
+    -fx-font-size: 15px;
+    -fx-line-spacing: 4px;
+}
+
+.role-radio {
+    -fx-background-color: rgba(255,255,255,0.09);
+    -fx-background-radius: 18;
+    -fx-border-color: rgba(56,189,248,0.24);
+    -fx-border-radius: 18;
+    -fx-padding: 16 34;
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.role-radio:hover {
+    -fx-background-color: rgba(56,189,248,0.16);
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.45), 18, 0.35, 0, 0);
+}
+
+.check-pill, .status-pill, .deck-label {
+    -fx-background-color: rgba(56,189,248,0.13);
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(56,189,248,0.30);
+    -fx-border-radius: 999;
+    -fx-padding: 8 12;
+    -fx-text-fill: #bae6fd;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+}
+
+.primary-button, .secondary-button {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-padding: 13 22;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900;
+    -fx-cursor: hand;
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #06b6d4, #2563eb);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.50), 20, 0.3, 0, 0);
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #22d3ee, #60a5fa);
+    -fx-effect: dropshadow(gaussian, rgba(34,211,238,0.72), 26, 0.45, 0, 0);
+}
+
+.secondary-button {
+    -fx-background-color: rgba(249,115,22,0.18);
+    -fx-border-color: rgba(251,146,60,0.45);
+    -fx-text-fill: #fed7aa;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(249,115,22,0.30);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(249,115,22,0.55), 20, 0.35, 0, 0);
+}
+
+.metric-card {
+    -fx-padding: 12;
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #f8fafc;
+}
+
+.card-effect-text {
+    -fx-background-color: rgba(120, 53, 15, 0.55);
+    -fx-background-radius: 16;
+    -fx-padding: 10;
+    -fx-text-fill: #fde68a;
+    -fx-font-weight: 700;
+}
+
+.monster-card-player, .monster-card-opponent {
+    -fx-padding: 13;
+    -fx-font-family: "Consolas", "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+}
+
+.monster-card-player {
+    -fx-border-color: rgba(59,130,246,0.40);
+}
+
+.monster-card-opponent {
+    -fx-border-color: rgba(244,63,94,0.40);
+}
+
+.side-panel {
+    -fx-border-width: 0 0 0 1;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.board-grid {
+    -fx-padding: 8;
+    -fx-background-color: rgba(2,6,23,0.42);
+    -fx-background-radius: 18;
+}
+
+.board-cell {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 6, 0.25, 0, 2);
+}
+
+.board-cell:hover {
+    -fx-effect: dropshadow(gaussian, rgba(56,189,248,0.70), 16, 0.40, 0, 0);
+}
+
+.cell-text {
+    -fx-font-size: 9px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.normal-cell {
+    -fx-background-color: #e5e7eb;
+}
+.normal-cell .cell-text, .laugher-door-cell .cell-text {
+    -fx-text-fill: #111827;
+}
+
+.scarer-door-cell {
+    -fx-background-color: #7c3aed;
+}
+
+.laugher-door-cell {
+    -fx-background-color: #facc15;
+}
+
+.card-cell {
+    -fx-background-color: #2563eb;
+}
+
+.monster-cell {
+    -fx-background-color: #dc2626;
+}
+
+.conveyor-cell {
+    -fx-background-color: #64748b;
+}
+
+.sock-cell {
+    -fx-background-color: #16a34a;
+}
+
+.activated-cell {
+    -fx-opacity: 0.55;
+    -fx-border-color: #ef4444;
+    -fx-border-width: 3;
+}
+
+.player-token, .opponent-token {
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: white;
+    -fx-font-size: 9px;
+    -fx-font-weight: 900;
+    -fx-min-width: 30px;
+    -fx-min-height: 22px;
+    -fx-padding: 2 4;
+}
+
+.player-token {
+    -fx-background-color: #1d4ed8;
+}
+
+.opponent-token {
+    -fx-background-color: #be123c;
+}
+
+.confused-token {
+    -fx-border-color: #facc15;
+    -fx-effect: dropshadow(gaussian, rgba(250,204,21,0.9), 14, 0.5, 0, 0);
+}
+
+.log-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+.log-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.log-message {
+    -fx-background-radius: 12;
+    -fx-padding: 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.log-info {
+    -fx-background-color: rgba(255,255,255,0.07);
+    -fx-text-fill: #e5e7eb;
+}
+
+.log-success {
+    -fx-background-color: rgba(34,197,94,0.14);
+    -fx-text-fill: #bbf7d0;
+}
+
+.log-warning {
+    -fx-background-color: rgba(239,68,68,0.16);
+    -fx-text-fill: #fecaca;
+}
+
+.winner-text, .final-stats {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-alignment: center;
+}
+
+.final-stats {
+    -fx-font-size: 20px;
+    -fx-text-fill: #bbf7d0;
+}
