@@ -16,6 +16,7 @@ public class Game {
     private final Monster player; 
     private final Monster opponent; 
     private Monster current;
+    private int lastRoll;
 
     // CHECK THIS LINE: If your M1 Game constructor didn't take a Role, 
     // change this signature back to exactly what it was in Milestone 1!
@@ -87,7 +88,12 @@ public class Game {
     }
     
     private int rollDice() { 
-        return (int) (Math.random() * 6) + 1;
+        lastRoll = (int) (Math.random() * 6) + 1;
+        return lastRoll;
+    }
+
+    public int getLastRoll() {
+        return lastRoll;
     }
 
     public void usePowerup() throws OutOfEnergyException {

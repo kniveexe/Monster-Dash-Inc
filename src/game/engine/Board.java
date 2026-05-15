@@ -19,6 +19,7 @@ public class Board {
     private static ArrayList<Card> originalCards;
     private static ArrayList<Card> expandedCards;
     public static ArrayList<Card> cards;
+    private static Card lastCardDrawn;
 
     public Board(ArrayList<Card> readCards) {
         boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
@@ -153,7 +154,16 @@ public class Board {
         if (cards.isEmpty()) {
             reloadCards();
         }
-        return cards.remove(0);
+        lastCardDrawn = cards.remove(0);
+        return lastCardDrawn;
+    }
+
+    public static Card getLastCardDrawn() {
+        return lastCardDrawn;
+    }
+
+    public static void clearLastCardDrawn() {
+        lastCardDrawn = null;
     }
 
     private void updateMonsterPositions(Monster player, Monster opponent) {
