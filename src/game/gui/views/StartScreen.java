@@ -9,85 +9,148 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 
 public class StartScreen {
 
     private final BorderPane view;
-    private final ToggleGroup roleGroup;
+    private Role selectedRole = null;
+    private VBox scarerCard;
+    private VBox laugherCard;
+    private Button startButton;
 
     public StartScreen() {
         view = new BorderPane();
         view.getStyleClass().add("start-root");
 
-        VBox container = new VBox(20);
+        VBox container = new VBox(22);
         container.setAlignment(Pos.CENTER);
         container.setPadding(new Insets(36));
-        container.setMaxWidth(920);
-        container.getStyleClass().add("glass-card");
+        container.setMaxWidth(940);
 
+        // ── Title ──
         Label title = new Label("DoorDasH");
         title.getStyleClass().add("hero-title");
 
         Label subtitle = new Label("Scare vs Laugh Touchdown");
         subtitle.getStyleClass().add("hero-subtitle");
 
-        Label instructionsTitle = new Label("Game Instructions");
-        instructionsTitle.getStyleClass().add("section-title");
+        // ── Instructions ──
+        VBox instructionsBox = new VBox(6);
+        instructionsBox.getStyleClass().add("start-instructions-box");
+        instructionsBox.setMaxWidth(820);
+
+        Label instrTitle = new Label("HOW TO PLAY");
+        instrTitle.getStyleClass().add("instructions-title");
 
         Label instructions = new Label(
-                "Choose SCARER or LAUGHER, then play the game from the selected side. "
-                        + "Use a powerup before rolling if you have enough energy. Roll the dice, move across the 100-cell board, "
-                        + "trigger doors, monster cells, card cells, conveyor belts and contamination socks. "
-                        + "The board, turn, dice result, card effect, energy changes, shield blocks, confusion and freeze effects are shown during play."
+                "Choose your side — SCARER or LAUGHER — then roll the dice to advance across the 100-cell board. " +
+                "Land on Door Cells to gain energy for your role or lose it for the enemy role. " +
+                "Card Cells draw powerful cards: shields, energy steal, position swap, confusion, and more. " +
+                "Monster Cells trigger powerups or energy swaps with stationed monsters. " +
+                "Conveyor Belts leap you forward; Contamination Socks drag you back (shield absorbs). " +
+                "Spend 500 energy before rolling to activate your monster's unique Powerup. " +
+                "The first to reach or pass cell 99 wins!"
         );
         instructions.setWrapText(true);
         instructions.getStyleClass().add("instructions-text");
+        instructionsBox.getChildren().addAll(instrTitle, instructions);
 
-        roleGroup = new ToggleGroup();
-        RadioButton scarerButton = createRoleButton("SCARER", Role.SCARER);
-        RadioButton laugherButton = createRoleButton("LAUGHER", Role.LAUGHER);
+        // ── Role picker label ──
+        Label chooseLabel = new Label("CHOOSE YOUR SIDE");
+        chooseLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 900; -fx-text-fill: #64748b; -fx-padding: 4 0 0 0;");
 
-        HBox roles = new HBox(22, scarerButton, laugherButton);
-        roles.setAlignment(Pos.CENTER);
+        // ── Role cards ──
+        scarerCard = buildRoleCard(Role.SCARER);
+        laugherCard = buildRoleCard(Role.LAUGHER);
 
-        Button startButton = new Button("Start Game");
+        HBox rolesRow = new HBox(24, scarerCard, laugherCard);
+        rolesRow.setAlignment(Pos.CENTER);
+
+        // ── Start button ──
+        startButton = new Button("Start Game");
         startButton.getStyleClass().add("primary-button");
-        startButton.setOnAction(event -> startGame());
+        startButton.setDisable(true);
+        startButton.setOnAction(e -> startGame());
 
-        HBox checklist = new HBox(14,
-                checklistItem("100 cells"),
-                checklistItem("Visible roles"),
-                checklistItem("Cards + effects"),
-                checklistItem("Status tracking"),
-                checklistItem("Safe errors")
+        // ── Feature checklist ──
+        HBox checklist = new HBox(10,
+                pill("100 Cells"),
+                pill("Role Logic"),
+                pill("Cards & Effects"),
+                pill("Status Tracking"),
+                pill("Action Log"),
+                pill("Safe Errors")
         );
         checklist.setAlignment(Pos.CENTER);
 
-        container.getChildren().addAll(title, subtitle, instructionsTitle, instructions, roles, startButton, checklist);
+        container.getChildren().addAll(
+                title, subtitle,
+                instructionsBox,
+                chooseLabel, rolesRow,
+                startButton,
+                checklist
+        );
 
         view.setCenter(container);
     }
 
-    private Label checklistItem(String text) {
+    private VBox buildRoleCard(Role role) {
+        boolean isScarer = (role == Role.SCARER);
+        VBox card = new VBox(10);
+        card.setAlignment(Pos.CENTER);
+        card.setPrefWidth(270);
+        card.setMinWidth(230);
+        card.getStyleClass().addAll("role-card", isScarer ? "role-card-scarer" : "role-card-laugher");
+
+        Label icon = new Label(isScarer ? "👾" : "😂");  // 👾 😂
+        icon.getStyleClass().add("role-icon");
+
+        Label name = new Label(isScarer ? "SCARER" : "LAUGHER");
+        name.getStyleClass().add("role-name");
+        name.setStyle(isScarer ? "-fx-text-fill: #c4b5fd;" : "-fx-text-fill: #fde68a;");
+
+        Label desc = new Label(isScarer
+                ? "Master of fear. Gain energy from\nScarer Doors. Purple powerhouse."
+                : "King of laughter. Gain energy from\nLaugher Doors. Golden champion."
+        );
+        desc.setWrapText(true);
+        desc.setTextAlignment(TextAlignment.CENTER);
+        desc.setAlignment(Pos.CENTER);
+        desc.getStyleClass().add("role-desc");
+
+        card.getChildren().addAll(icon, name, desc);
+        card.setOnMouseClicked(e -> selectRole(role));
+        return card;
+    }
+
+    private void selectRole(Role role) {
+        selectedRole = role;
+
+        // Remove selection highlight from both
+        scarerCard.getStyleClass().removeAll("role-card-scarer-selected", "role-card-laugher-selected");
+        laugherCard.getStyleClass().removeAll("role-card-scarer-selected", "role-card-laugher-selected");
+
+        // Add to chosen
+        if (role == Role.SCARER) {
+            scarerCard.getStyleClass().add("role-card-scarer-selected");
+        } else {
+            laugherCard.getStyleClass().add("role-card-laugher-selected");
+        }
+
+        startButton.setDisable(false);
+    }
+
+    private Label pill(String text) {
         Label label = new Label("✓ " + text);
         label.getStyleClass().add("check-pill");
         return label;
-    }
-
-    private RadioButton createRoleButton(String text, Role role) {
-        RadioButton button = new RadioButton(text);
-        button.setToggleGroup(roleGroup);
-        button.setUserData(role);
-        button.getStyleClass().add("role-radio");
-        return button;
     }
 
     public BorderPane getView() {
@@ -95,20 +158,20 @@ public class StartScreen {
     }
 
     private void startGame() {
-        if (roleGroup.getSelectedToggle() == null) {
+        if (selectedRole == null) {
             showWarning("Select a Side", "Please select SCARER or LAUGHER before starting the game.");
             return;
         }
-
-        Role selectedRole = (Role) roleGroup.getSelectedToggle().getUserData();
 
         try {
             GameController controller = new GameController(selectedRole);
             Scene scene = new Scene(controller.getView(), 1240, 820);
             Main.setScene(scene);
         } catch (IOException ex) {
+            ex.printStackTrace();
             showWarning("Loading Error", "Could not load game data files.\n" + safeMessage(ex));
         } catch (Exception ex) {
+            ex.printStackTrace();
             showWarning("Unexpected Error", safeMessage(ex));
         }
     }
@@ -122,6 +185,7 @@ public class StartScreen {
     }
 
     private String safeMessage(Exception ex) {
-        return ex.getMessage() == null || ex.getMessage().isBlank() ? ex.getClass().getSimpleName() : ex.getMessage();
+        return (ex.getMessage() == null || ex.getMessage().isBlank())
+                ? ex.getClass().getSimpleName() : ex.getMessage();
     }
 }

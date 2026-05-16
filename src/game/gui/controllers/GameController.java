@@ -86,10 +86,12 @@ public class GameController {
             checkWinner();
 
         } catch (InvalidMoveException ex) {
+            ex.printStackTrace();
             showWarning("Invalid Move", "The move is prohibited because the target cell is occupied or invalid. Choose another valid action.");
-            gameScreen.addWarningLog("Invalid move blocked. The game did not stop.");
+            gameScreen.addWarningLog("Invalid move blocked: cannot land on opponent's cell.");
             refresh();
         } catch (Exception ex) {
+            ex.printStackTrace();
             showWarning("Action Error", safeMessage(ex));
             gameScreen.addWarningLog("Action blocked: " + ex.getClass().getSimpleName() + ". The game did not stop.");
             refresh();
@@ -105,10 +107,12 @@ public class GameController {
             logStateChanges();
             refresh();
         } catch (OutOfEnergyException ex) {
-            showWarning("Out of Energy", "Not enough energy to activate the powerup. Choose another action.");
-            gameScreen.addWarningLog("Powerup prohibited: not enough energy.");
+            ex.printStackTrace();
+            showWarning("Out of Energy", "Not enough energy to activate the powerup (requires 500). Choose another action.");
+            gameScreen.addWarningLog("Powerup blocked: insufficient energy (need 500).");
             refresh();
         } catch (Exception ex) {
+            ex.printStackTrace();
             showWarning("Powerup Error", safeMessage(ex));
             gameScreen.addWarningLog("Powerup blocked: " + ex.getClass().getSimpleName() + ".");
             refresh();
