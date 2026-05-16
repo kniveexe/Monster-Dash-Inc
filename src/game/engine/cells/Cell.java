@@ -1,6 +1,8 @@
 package game.engine.cells;
 
 import game.engine.monsters.Monster;
+import game.engine.cells.TransportCell;
+
 public class Cell{
 	private final String name; private Monster monster;  // READ AND WRITE aka setters we getters
 
@@ -25,5 +27,20 @@ public class Cell{
     public String toString() {
         return "Cell position for (" + name + ")";
     }
+    
+    public boolean isOccupied() {
+        return monster != null;
+    }    
+    
+    public void onLand(Monster landingMonster, Monster opponentMonster) {
+        setMonster(landingMonster);
+    }
+    
+    
+    
+    
+    
+    
+    
 }// mkan el monster
 	
