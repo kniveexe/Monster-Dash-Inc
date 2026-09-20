@@ -1,0 +1,17 @@
+# Java build output
+*.class
+bin/
+out/
+build/
+target/
+
+# IDE-specific local files
+.idea/
+*.iml
+
+# Runtime output
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
